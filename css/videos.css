@@ -1,0 +1,56 @@
+/*Main*/
+
+main {
+    height: 100%;
+    margin: 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h3 {
+  font-size: 3rem;
+  font-family: 'Montserrat';
+  font-weight: 400;
+  color: white;
+  text-align: center;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    width: 160.6rem;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+iframe {
+    margin-bottom: 5rem;
+    margin-top: 2rem;
+    max-width: 100%;
+}
+
+.arrow {
+    border: solid rgb(255, 255, 255);
+    border-width: 0 3px 3px 0;
+    padding: 0.3rem;
+    float: right;
+  }
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+  }
+
+
+@media screen and (max-width: 768px) {
+  .wrap {
+      width: 100%; /* Adjust the width to fit smaller screens */
+  }
+  
+  iframe {
+      width: 100%; /* Make the video width 100% of its container */
+      height: auto; /* Allow the height to adjust proportionally */
+  }
+}

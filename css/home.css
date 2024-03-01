@@ -1,0 +1,123 @@
+/*main*/
+.hero {
+    width: 100vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+a {
+    font-family: 'Montserrat';
+    text-decoration: none;
+}
+
+img {
+    width: 100%
+}
+
+#section1 {
+    color: #ffffff;
+    margin-left: 3rem;
+    margin-right: 7rem;
+}
+
+p {
+    font-family: 'OpenSans';
+    font-weight: 400;
+    font-size: 2.8rem;
+    line-height: 1.4;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    margin-top: 12rem;
+}
+
+.portrait {
+    margin-bottom: 2rem;
+}
+
+.inlinelink {
+    color: rgb(252, 252, 206);
+    text-decoration: underline;
+}
+
+.inlinelink:hover {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #333333;
+    padding: 0.1em 0.3em;
+    border-radius: 0.2em;
+}
+
+/*-- button --*/
+
+.btn-holder {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-big:hover {
+    box-shadow: 0 0 10px 0 #ffffff inset, 0 0 20px 2px #fafafa;
+    border: 3px solid #ffffff;
+}
+
+.btn-big {
+    background-color: transparent;
+    border: 3px solid #ffffff;
+    border-radius: 50px;
+    font-size: 2rem;
+    padding: 2rem;
+    -webkit-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+    color: rgb(255, 255, 255);
+}
+
+@media only screen and (min-width: 1025px) {
+
+    .btn-big:hover {
+        box-shadow: 0 0 10px 0 #ffffff inset, 0 0 20px 2px #fafafa;
+        border: 3px solid #ffffff;
+    }
+
+    .btn-big {
+        background-color: transparent;
+        border: 3px solid #ffffff;
+        border-radius: 50px;
+        font-size: 3rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin-left: 6rem;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        -webkit-transition: all .15s ease-in-out;
+        transition: all .15s ease-in-out;
+        color: rgb(255, 255, 255);
+    }
+
+    .wrap {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        margin-top: 12rem;
+    }
+
+    .thirty {
+        width: 30%;
+        padding: 2rem;
+    }
+
+    .seventy {
+        width: 70%;
+        padding: 2rem;
+    }
+
+    .portrait {
+        margin-left: 2rem;
+    }
+}
