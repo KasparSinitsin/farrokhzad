@@ -16,18 +16,10 @@ main {
     margin-bottom: 3rem;
 }
 
-.poems {
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    color: #ffffff;
-}
-
 .poem {
-    display: inline-block;
-    width: 50%;
-    margin-left: 3rem;
-    margin-right: 3rem;
+  flex: 1 1 45%;
+  margin: 0 3rem;
+    overflow: hidden; 
 }
 
 h1 {
@@ -82,3 +74,14 @@ hr {
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
   }
+
+  @media only screen and (min-width: 871px) {  
+  .poems {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    color: #ffffff;
+    margin: 0 auto; 
+    max-width: 120rem;
+  }
+}
