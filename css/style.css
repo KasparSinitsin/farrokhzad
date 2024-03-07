@@ -25,7 +25,7 @@ html {
 body {
   background-color: black;
   margin: 0;
-  animation: fadeInAnimation ease 0.3s;
+  animation: fadeInAnimation ease 0.5s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
@@ -55,8 +55,9 @@ header {
 .lang {
   font-family: 'Montserrat';
   text-decoration: none;
-  margin-top: 3.5rem;
+  margin-top: 1.5rem;
   color:white;
+  padding: 1.6rem;
 }
 
 /* Dropdown button */
@@ -187,7 +188,7 @@ nav ul li a {
   }
 }
 
-@media only screen and (min-width: 887px) {
+@media only screen and (min-width: 1025px) {
   
   /*This header uses floats instead of flexbox*/
   
@@ -242,13 +243,10 @@ li:hover {
  transition: transform 0.3s ease; 
 }
 
-}  
+.navtoggle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
-@media only screen and (min-width: 1025px) {
-
-  .navtoggle {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-  }
 }
