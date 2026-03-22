@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fereydoon Farrokhzad — A Life in Cities</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0b0b;
+    --grid: #161616;
+    --header: #e0e0e0;
+    --subheader: #555;
+    --divider: #222;
+    --node-primary: #e0e0e0;
+    --node-secondary: #707070;
+    --node-ring: rgba(224,224,224,0.15);
+    --label-role: #ffffff;
+    --label-city: #c0c0c0;
+    --label-detail: #666;
+    --label-footer: #383838;
+    --route-early: #505050;
+    --route-exile: #aaaaaa;
+    --route-mission: #707070;
+    --panel-border: #222;
+    --panel-years: #666;
+    --panel-role: #ffffff;
+    --panel-city: #e0e0e0;
+    --panel-text: #999;
+    --panel-btn-border: #3a3a3a;
+    --panel-btn-color: #777;
+    --panel-btn-hover-border: #666;
+    --panel-btn-hover-color: #aaa;
+    --zoom-bg: #0b0b0b;
+    --zoom-border: #2a2a2a;
+    --zoom-color: #555;
+    --hint: #444;
+    --theme-btn-color: #444;
+    --theme-btn-border: #2a2a2a;
+  }
+
+  body.light {
+    --bg: #f5f2ee;
+    --grid: #e0dcd6;
+    --header: #1a1a1a;
+    --subheader: #888;
+    --divider: #ccc;
+    --node-primary: #1a1a1a;
+    --node-secondary: #888;
+    --node-ring: rgba(0,0,0,0.1);
+    --label-role: #1a1a1a;
+    --label-city: #333;
+    --label-detail: #888;
+    --label-footer: #aaa;
+    --route-early: #bbb;
+    --route-exile: #777;
+    --route-mission: #aaa;
+    --panel-border: #ddd;
+    --panel-years: #aaa;
+    --panel-role: #1a1a1a;
+    --panel-city: #222;
+    --panel-text: #555;
+    --panel-btn-border: #ccc;
+    --panel-btn-color: #888;
+    --panel-btn-hover-border: #888;
+    --panel-btn-hover-color: #333;
+    --zoom-bg: #f5f2ee;
+    --zoom-border: #ccc;
+    --zoom-color: #888;
+    --hint: #bbb;
+    --theme-btn-color: #888;
+    --theme-btn-border: #ccc;
+  }
+
+  body { background: var(--bg); font-family: Georgia, 'Times New Roman', serif; color: var(--panel-text); transition: bg 0.3s; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 2rem 0 3rem; }
+
+  .map-wrapper {
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+  }
+  .map-wrapper:active { cursor: grabbing; }
+  .map-inner { transform-origin: 0 0; }
+  .map-inner svg { width: 100%; display: block; }
+
+  .zoom-controls {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 10;
+  }
+  .zoom-controls button {
+    width: 28px;
+    height: 28px;
+    background: var(--zoom-bg);
+    border: 0.5px solid var(--zoom-border);
+    color: var(--zoom-color);
+    font-family: Georgia, serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .zoom-controls button:hover { border-color: var(--panel-btn-hover-border); color: var(--panel-btn-hover-color); }
+
+  .theme-toggle {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+  }
+  .theme-toggle button {
+    background: var(--zoom-bg);
+    border: 0.5px solid var(--theme-btn-border);
+    color: var(--theme-btn-color);
+    font-family: Georgia, serif;
+    font-size: 14px;
+    letter-spacing: 0;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .theme-toggle button:hover { border-color: var(--panel-btn-hover-border); color: var(--panel-btn-hover-color); }
+
+  .city-node { cursor: pointer; }
+  .city-node circle.ring { transition: opacity 0.2s; }
+  .city-node:hover circle.ring { opacity: 0.5 !important; }
+  .city-node:hover circle.dot { fill: var(--header); }
+  .city-node:hover polygon { fill: var(--node-secondary); stroke: var(--header); }
+  .city-node circle.dot { transition: fill 0.2s; }
+
+  .panel {
+    display: none;
+    margin-top: 1.5rem;
+    border-top: 0.5px solid var(--panel-border);
+    padding: 1.5rem 1.5rem 0;
+    animation: fadein 0.3s ease;
+  }
+  .panel.active { display: block; padding-bottom: 3rem; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .panel-inner { display: flex; gap: 2rem; align-items: flex-start; max-width: 640px; margin: 0 auto; }
+
+  .panel-years {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--panel-years);
+    min-width: 80px;
+    padding-top: 4px;
+  }
+  .panel-role {
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--panel-role);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .panel-city {
+    font-size: 22px;
+    color: var(--panel-city);
+    margin-bottom: 10px;
+    font-weight: normal;
+  }
+  .panel-text {
+    font-size: 14px;
+    color: var(--panel-text);
+    line-height: 1.8;
+    max-width: 560px;
+  }
+
+  .panel-nav {
+    margin-top: 1.2rem;
+    display: flex;
+    gap: 12px;
+  }
+  .panel-nav button {
+    background: none;
+    border: 0.5px solid var(--panel-btn-border);
+    color: var(--panel-btn-color);
+    font-family: Georgia, serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .panel-nav button:hover { border-color: var(--panel-btn-hover-border); color: var(--panel-btn-hover-color); }
+
+  .filter-bar {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 0.75rem 0 0.25rem;
+  }
+  .filter-bar button {
+    background: none;
+    border: 0.5px solid var(--panel-btn-border);
+    color: var(--panel-btn-color);
+    font-family: Georgia, serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 5px 16px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, bg 0.2s;
+    text-transform: uppercase;
+  }
+  .filter-bar button:hover { border-color: var(--panel-btn-hover-border); color: var(--panel-btn-hover-color); }
+  .filter-bar button.active { border-color: var(--panel-city); color: var(--panel-city); }
+  .map-filtered [data-group="early"] { transition: opacity 0.4s; opacity: 0.08; pointer-events: none; }
+  .map-filtered [data-group="exile"] { transition: opacity 0.4s; opacity: 0.08; pointer-events: none; }
+  .map-filter-early [data-group="exile"] { opacity: 0.08; pointer-events: none; }
+  .map-filter-exile [data-group="early"] { opacity: 0.08; pointer-events: none; }
+  [data-group] { transition: opacity 0.4s; }
+  @media (max-width: 600px) {
+    .panel-inner { flex-direction: column; gap: 0.5rem; }
+    .panel-years { min-width: unset; padding-top: 0; font-size: 12px; }
+    .panel-city { font-size: 18px; }
+    .panel-text { font-size: 13px; }
+    .panel-role { font-size: 10px; }
+    .panel-nav { flex-wrap: wrap; }
+    .panel-nav button { padding: 8px 16px; font-size: 12px; }
+    .filter-bar button { padding: 8px 12px; font-size: 10px; letter-spacing: 1px; }
+    .zoom-controls button { width: 34px; height: 34px; }
+    .theme-toggle button { padding: 6px 10px; font-size: 16px; }
+  }
+  .hint {
+    text-align: center;
+    font-size: 11px;
+    color: var(--hint);
+    letter-spacing: 2px;
+    margin-top: 0.5rem;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="map-wrapper" id="mapWrapper">
+  <div class="map-inner" id="mapInner">
+<svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .svg-bg { fill: var(--bg); }
+    .svg-grid { stroke: var(--grid); }
+    .svg-header { fill: var(--header); }
+    .svg-subheader { fill: var(--subheader); }
+    .svg-divider { stroke: var(--divider); }
+    .svg-node-primary { fill: var(--node-primary); }
+    .svg-node-secondary { fill: var(--node-secondary); }
+    .svg-node-ring { stroke: var(--node-primary); fill: none; opacity: 0.15; }
+    .svg-label-role { fill: var(--label-role); }
+    .svg-label-city { fill: var(--label-city); }
+    .svg-label-detail { fill: var(--label-detail); }
+    .svg-label-footer { fill: var(--label-footer); }
+    .svg-route-early { stroke: var(--route-early); }
+    .svg-route-exile { stroke: var(--route-exile); }
+    .svg-route-mission { stroke: var(--route-mission); }
+    .svg-diamond { fill: var(--node-secondary); }
+    .svg-diamond-open { fill: none; stroke: var(--node-secondary); stroke-width: 1.2; }
+    .svg-footer-line { stroke: var(--divider); }
+    @media (max-width: 600px) {
+      .svg-label-role { display: none; }
+      .svg-label-detail { display: none; }
+      .svg-label-footer { display: none; }
+      .svg-subheader { display: none; }
+    }
+  </style>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#606060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M2 2L8 5L2 8" fill="none" class="svg-route-exile" stroke="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Grid -->
+  <line x1="40" y1="100" x2="860" y2="100" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="40" y1="150" x2="860" y2="150" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="40" y1="200" x2="860" y2="200" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="40" y1="250" x2="860" y2="250" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="40" y1="300" x2="860" y2="300" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="40" y1="350" x2="860" y2="350" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="40" y1="400" x2="860" y2="400" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="100" y1="80" x2="100" y2="440" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="200" y1="80" x2="200" y2="440" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="300" y1="80" x2="300" y2="440" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="400" y1="80" x2="400" y2="440" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="500" y1="80" x2="500" y2="440" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="600" y1="80" x2="600" y2="440" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="700" y1="80" x2="700" y2="440" class="svg-grid" stroke="none" stroke-width="0.5"/>
+  <line x1="800" y1="80" x2="800" y2="440" class="svg-grid" stroke="none" stroke-width="0.5"/>
+
+  <!-- Header -->
+  <text x="450" y="36" text-anchor="middle" class="svg-header" font-size="20" font-family="Georgia, serif" letter-spacing="5">FEREYDOON FARROKHZAD</text>
+  <text x="450" y="56" text-anchor="middle" class="svg-subheader" font-size="11" font-family="Georgia, serif" letter-spacing="3">A LIFE IN CITIES  ·  1938 – 1992</text>
+  <line x1="310" y1="66" x2="590" y2="66" class="svg-divider" stroke-width="0.5"/>
+
+  <!-- Early routes (dimmer) -->
+  <path data-group="early" d="M 658 270 Q 528 200 395 187" fill="none" class="svg-route-early" stroke="none" stroke-width="1.1" stroke-dasharray="4 4" opacity="0.7" marker-end="url(#arr)"/>
+  <path data-group="early" d="M 393 185 Q 528 128 656 266" fill="none" class="svg-route-early" stroke="none" stroke-width="1.1" stroke-dasharray="4 4" opacity="0.7" marker-end="url(#arr)"/>
+
+  <!-- Exile routes (brighter) -->
+  <path data-group="exile" d="M 656 272 Q 594 238 532 234" fill="none" class="svg-route-exile" stroke="none" stroke-width="1.2" stroke-dasharray="5 3.5" opacity="0.85" marker-end="url(#arr2)"/>
+  <path data-group="exile" d="M 530 234 Q 410 228 272 242" fill="none" class="svg-route-exile" stroke="none" stroke-width="1.2" stroke-dasharray="5 3.5" opacity="0.85" marker-end="url(#arr2)"/>
+  <path data-group="exile" d="M 268 240 Q 155 85 44 308" fill="none" class="svg-route-exile" stroke="none" stroke-width="1.2" stroke-dasharray="5 3.5" opacity="0.65" marker-end="url(#arr2)"/>
+  <path data-group="exile" d="M 46 308 Q 188 108 373 145" fill="none" class="svg-route-exile" stroke="none" stroke-width="1.2" stroke-dasharray="5 3.5" opacity="0.85" marker-end="url(#arr2)"/>
+
+  <!-- City nodes — clickable -->
+  <g class="city-node" data-group="both" onclick="showCity('tehran')">
+    <circle cx="660" cy="272" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
+    <circle cx="660" cy="272" r="6" class="svg-node-primary dot"/>
+    <text x="673" y="237" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">child · singer · TV star</text>
+    <text x="673" y="251" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Tehran</text>
+    <text x="673" y="264" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">1938–1958 · 1967–1982</text>
+  </g>
+
+  <g class="city-node" data-group="early" onclick="showCity('munich')">
+    <circle cx="395" cy="187" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
+    <circle cx="395" cy="187" r="5" class="svg-node-secondary dot"/>
+    <text x="407" y="152" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">student · prize-winning poet</text>
+    <text x="407" y="165" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Munich</text>
+    <text x="407" y="178" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">1958 – 1967</text>
+  </g>
+
+  <g class="city-node" data-group="exile" onclick="showCity('bonn')">
+    <circle cx="375" cy="145" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
+    <circle cx="375" cy="145" r="6" class="svg-node-primary dot"/>
+    <text x="363" y="110" text-anchor="end" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">undefeated voice of protest</text>
+    <text x="363" y="123" text-anchor="end" class="svg-label-city" font-size="13" font-family="Georgia, serif">Bonn</text>
+    <text x="363" y="136" text-anchor="end" class="svg-label-detail" font-size="10" font-family="Georgia, serif">settled · performed · murdered · 1992</text>
+  </g>
+
+  <g class="city-node" data-group="exile" onclick="showCity('istanbul')">
+    <circle cx="532" cy="234" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
+    <circle cx="532" cy="234" r="5" class="svg-node-secondary dot"/>
+    <text x="544" y="248" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">homeless refugee</text>
+    <text x="544" y="261" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Istanbul</text>
+    <text x="544" y="274" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">a stranger helped him</text>
+  </g>
+
+  <g class="city-node" data-group="exile" onclick="showCity('paris')">
+    <circle cx="270" cy="242" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
+    <circle cx="270" cy="242" r="5" class="svg-node-secondary dot"/>
+    <text x="258" y="258" text-anchor="end" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">depressed refugee</text>
+    <text x="258" y="271" text-anchor="end" class="svg-label-city" font-size="13" font-family="Georgia, serif">Paris</text>
+    <text x="258" y="284" text-anchor="end" class="svg-label-detail" font-size="10" font-family="Georgia, serif">between countries</text>
+  </g>
+
+  <g class="city-node" data-group="exile" onclick="showCity('la')">
+    <circle cx="44" cy="310" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
+    <circle cx="44" cy="310" r="5" class="svg-node-secondary dot"/>
+    <text x="56" y="324" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">TV host in exile</text>
+    <text x="56" y="337" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Los Angeles</text>
+    <text x="56" y="350" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">stayed awhile (hated it)</text>
+  </g>
+
+  <!-- Mission line Bonn → Iraq (repeated, very faint) -->
+  <path data-group="exile" d="M 377 147 Q 480 280 608 318" fill="none" class="svg-route-mission" stroke="none" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.4"/>
+  <path data-group="exile" d="M 377 150 Q 482 284 610 322" fill="none" class="svg-route-mission" stroke="none" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.25"/>
+  <path data-group="exile" d="M 377 153 Q 484 288 612 326" fill="none" class="svg-route-mission" stroke="none" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.15"/>
+
+  <!-- London — visit dot (diamond shape) -->
+  <g class="city-node" data-group="early" onclick="showCity('london')">
+    <circle cx="190" cy="148" r="12" class="svg-node-ring ring" stroke-width="0.6"/>
+    <polygon points="190,141 196,148 190,155 184,148" class="svg-diamond dot" style="transition: fill 0.2s"/>
+    <text x="178" y="132" text-anchor="end" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">a young man in love</text>
+    <text x="178" y="145" text-anchor="end" class="svg-label-city" font-size="13" font-family="Georgia, serif">London</text>
+    <text x="178" y="158" text-anchor="end" class="svg-label-detail" font-size="10" font-family="Georgia, serif">met Anja · 1962</text>
+  </g>
+
+  <!-- Iraq — mission marker (open diamond) -->
+  <g class="city-node" data-group="exile" onclick="showCity('iraq')">
+    <circle cx="614" cy="322" r="12" class="svg-node-ring ring" stroke-width="0.6"/>
+    <polygon points="614,314 621,322 614,330 607,322" class="svg-diamond-open dot" style="transition: stroke 0.2s"/>
+    <text x="626" y="310" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">humanitarian mission</text>
+    <text x="626" y="323" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Iraq</text>
+    <text x="626" y="336" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">POW camps · 1985–1988</text>
+  </g>
+  <line x1="40" y1="450" x2="860" y2="450" class="svg-footer-line" stroke-width="0.5"/>
+  <text x="450" y="468" text-anchor="middle" class="svg-label-footer" font-size="10" font-family="Georgia, serif" letter-spacing="2">POET  ·  ENTERTAINER  ·  1938 – 1992</text>
+</svg>
+  </div>
+  <div class="zoom-controls">
+    <button onclick="zoom(1.25)" title="Zoom in">+</button>
+    <button onclick="zoom(1/1.25)" title="Zoom out">−</button>
+    <button onclick="resetZoom()" title="Reset" style="font-size:11px;letter-spacing:0;">↺</button>
+  </div>
+  <div class="theme-toggle">
+    <button onclick="toggleTheme()" id="themeBtn" title="Toggle theme">☀</button>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <button class="active" onclick="setFilter('all', this)">All</button>
+  <button onclick="setFilter('early', this)">Early life</button>
+  <button onclick="setFilter('exile', this)">Exile</button>
+</div>
+
+<p class="hint">· click any city ·</p>
+
+<!-- Detail panels -->
+<div id="panel-london" class="panel">
+  <div class="panel-inner">
+    <div class="panel-years">1962</div>
+    <div class="panel-body">
+      <div class="panel-role">a young man in love</div>
+      <div class="panel-city">London</div>
+      <div class="panel-text">During his Munich years he met Anja in London — and it was this encounter that first drew poetry out of him. She became his wife, and together they had a son, Rostam. Their relationship was the spark that turned a student into a poet. Without London, without Anja, the voice that would eventually make him dangerous enough to assassinate might never have found itself.</div>
+      <div class="panel-nav">
+        <button onclick="showCity('munich')">← Munich</button>
+        <button onclick="hidePanel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="panel-iraq" class="panel">
+  <div class="panel-inner">
+    <div class="panel-years">1985–1988</div>
+    <div class="panel-body">
+      <div class="panel-role">humanitarian mission</div>
+      <div class="panel-city">Iraq</div>
+      <div class="panel-text">Three times during the Iran-Iraq war, Fereydoon flew into active conflict to reach POW camps holding Iranian child soldiers. He negotiated their release as a member of a diplomatic mission and brought approximately 100 children back to their families in Europe. It is one of the least known and most remarkable things he did.</div>
+      <div class="panel-nav">
+        <button onclick="showCity('bonn')">← Bonn</button>
+        <button onclick="hidePanel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="panel-tehran" class="panel">
+  <div class="panel-inner">
+    <div class="panel-years">1938–1958<br/><br/>1967–1982</div>
+    <div class="panel-body">
+      <div class="panel-role">child · singer · beloved TV star</div>
+      <div class="panel-city">Tehran</div>
+      <div class="panel-text">Born here in 1938, Fereydoon spent his childhood and youth in Tehran before leaving for Germany. After nearly a decade in Munich he returned — and became one of Iran's most celebrated entertainers, a famous singer and a television host whose charisma and wit made him a household name. He was also openly, unapologetically queer in a country where that carried mortal risk. The revolution of 1979 made his continued presence impossible, and in 1982 he left — this time not by choice.</div>
+      <div class="panel-nav">
+        <button onclick="showCity('munich')">Next: Munich →</button>
+        <button onclick="hidePanel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="panel-munich" class="panel">
+  <div class="panel-inner">
+    <div class="panel-years">1958–1967</div>
+    <div class="panel-body">
+      <div class="panel-role">student · prize-winning poet</div>
+      <div class="panel-city">Munich</div>
+      <div class="panel-text">He arrived as a student and left as a poet. In Munich he wrote his PhD in political science, became a father, and in 1964 won the Berlin Poetry Prize. He joined the Munich Academy of Poetry and hosted programs on local television — an experience that will kickstart his whole career back at home. Germany didn't just shelter him — it shaped him as a poet and thinker. When he returned to Iran in 1967 he carried this literary formation with him, beneath the entertainer's surface that the public would come to adore.</div>
+      <div class="panel-nav">
+        <button onclick="showCity('tehran')">← Tehran</button>
+        <button onclick="showCity('istanbul')">Next: Istanbul →</button>
+        <button onclick="hidePanel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="panel-istanbul" class="panel">
+  <div class="panel-inner">
+    <div class="panel-years">1982</div>
+    <div class="panel-body">
+      <div class="panel-role">homeless refugee</div>
+      <div class="panel-city">Istanbul</div>
+      <div class="panel-text">He arrived with nothing, uncertain of everything. For a time he was homeless. Then a kind Turkish stranger helped him find footing — one of those acts of quiet human decency that go unrecorded by history but without which there is no history. Istanbul was not a destination; it was a threshold. He passed through it carrying everything he had lost.</div>
+      <div class="panel-nav">
+        <button onclick="showCity('paris')">Next: Paris →</button>
+        <button onclick="hidePanel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="panel-paris" class="panel">
+  <div class="panel-inner">
+    <div class="panel-years">~1983–1984</div>
+    <div class="panel-body">
+      <div class="panel-role">depressed refugee</div>
+      <div class="panel-city">Paris</div>
+      <div class="panel-text">A pause between elsewhere and somewhere. Paris was the city of Iranian exile for many artists and intellectuals fleeing the revolution, but for Fereydoon it didn't hold. He was between countries in every sense — no longer Iranian in the eyes of the regime, not yet anything else. The depression of those months was real and heavy.</div>
+      <div class="panel-nav">
+        <button onclick="showCity('istanbul')">← Istanbul</button>
+        <button onclick="showCity('la')">Next: Los Angeles →</button>
+        <button onclick="hidePanel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="panel-la" class="panel">
+  <div class="panel-inner">
+    <div class="panel-years">~1984–1985</div>
+    <div class="panel-body">
+      <div class="panel-role">TV host in exile</div>
+      <div class="panel-city">Los Angeles</div>
+      <div class="panel-text">Los Angeles had a large Iranian diaspora and he worked as a TV host there — continuing in the medium that had made him famous, but in exile, for an audience of the displaced. He stayed awhile. He hated it. The city that swallowed so many exiles couldn't hold him. He left for Germany, the country that had named him a poet thirty years earlier.</div>
+      <div class="panel-nav">
+        <button onclick="showCity('paris')">← Paris</button>
+        <button onclick="showCity('bonn')">Next: Bonn →</button>
+        <button onclick="hidePanel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="panel-bonn" class="panel">
+  <div class="panel-inner">
+    <div class="panel-years">~1985–1992</div>
+    <div class="panel-body">
+      <div class="panel-role">undefeated voice of protest</div>
+      <div class="panel-city">Bonn</div>
+      <div class="panel-text">He settled, performed, recorded, and continued — an unsilenced voice against the Islamic Republic, broadcasting to Iranians wherever they were. On August 8, 1992, he was assassinated in his Bonn apartment, almost certainly by agents of the Iranian state. He was 54. The murder was meant to silence him. It didn't.</div>
+      <div class="panel-nav">
+        <button onclick="showCity('la')">← Los Angeles</button>
+        <button onclick="hidePanel()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+  let current = null;
+  function showCity(id) {
+    const prev = current;
+    if (prev) {
+      document.getElementById('panel-' + prev).classList.remove('active');
+    }
+    if (prev === id) {
+      current = null;
+      return;
+    }
+    current = id;
+    setTimeout(() => {
+      document.getElementById('panel-' + id).classList.add('active');
+      document.getElementById('panel-' + id).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 20);
+  }
+  function hidePanel() {
+    if (current) {
+      document.getElementById('panel-' + current).classList.remove('active');
+      current = null;
+    }
+  }
+  function setFilter(group, btn) {
+    const svg = document.querySelector('svg');
+    svg.classList.remove('map-filter-early', 'map-filter-exile');
+    document.querySelectorAll('.filter-bar button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (group === 'early') svg.classList.add('map-filter-early');
+    if (group === 'exile') svg.classList.add('map-filter-exile');
+    hidePanel();
+  }
+  function toggleTheme() {
+    const isLight = document.body.classList.toggle('light');
+    document.getElementById('themeBtn').textContent = isLight ? '☾' : '☀';
+  }
+</script>
+<script>
+  let scale = 1, panX = 0, panY = 0;
+  const wrapper = document.getElementById('mapWrapper');
+  const inner = document.getElementById('mapInner');
+
+  function applyTransform() {
+    inner.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+    wrapper.style.height = (inner.offsetWidth / 900 * 480 * scale + Math.abs(panY)) + 'px';
+  }
+
+  function zoom(factor, cx, cy) {
+    const rect = wrapper.getBoundingClientRect();
+    cx = cx ?? rect.width / 2;
+    cy = cy ?? rect.height / 2;
+    const newScale = Math.min(4, Math.max(1, scale * factor));
+    const ratio = newScale / scale;
+    panX = cx - ratio * (cx - panX);
+    panY = cy - ratio * (cy - panY);
+    if (newScale === 1) { panX = 0; panY = 0; }
+    scale = newScale;
+    applyTransform();
+  }
+
+  function resetZoom() {
+    scale = 1; panX = 0; panY = 0;
+    applyTransform();
+  }
+
+  wrapper.addEventListener('wheel', e => {
+    e.preventDefault();
+    const rect = wrapper.getBoundingClientRect();
+    zoom(e.deltaY < 0 ? 1.1 : 1/1.1, e.clientX - rect.left, e.clientY - rect.top);
+  }, { passive: false });
+
+  let dragging = false, startX, startY, startPanX, startPanY;
+  wrapper.addEventListener('mousedown', e => {
+    dragging = true; startX = e.clientX; startY = e.clientY;
+    startPanX = panX; startPanY = panY;
+  });
+  window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    panX = startPanX + e.clientX - startX;
+    panY = startPanY + e.clientY - startY;
+    applyTransform();
+  });
+  window.addEventListener('mouseup', () => dragging = false);
+
+  let lastDist = null;
+  wrapper.addEventListener('touchmove', e => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (lastDist) {
+        const rect = wrapper.getBoundingClientRect();
+        const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+        const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+        zoom(dist / lastDist, cx, cy);
+      }
+      lastDist = dist;
+    }
+  }, { passive: false });
+  wrapper.addEventListener('touchend', () => lastDist = null);
+
+  applyTransform();
+</script>
+</body>
+</html>
