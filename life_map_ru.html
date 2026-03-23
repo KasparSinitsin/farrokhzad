@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Fereydoon Farrokhzad — A Life in Cities</title>
+<title>Фереидун Фаррохзад — Жизнь в городах</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -41,7 +41,7 @@
   }
 
   body.light {
-    --bg: #f5f2ee;
+    --bg: #f3f3f3;
     --grid: #e0dcd6;
     --header: #1a1a1a;
     --subheader: #888;
@@ -158,7 +158,6 @@
     padding-top: 4px;
   }
 
-  .panel-body {}
   .panel-role {
     font-size: 11px;
     font-weight: bold;
@@ -249,7 +248,7 @@
 
 <div class="map-wrapper" id="mapWrapper">
   <div class="map-inner" id="mapInner">
-<svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg">
   <style>
     .svg-bg { fill: var(--bg); }
     .svg-grid { stroke: var(--grid); }
@@ -303,8 +302,8 @@
   <line x1="800" y1="80" x2="800" y2="440" class="svg-grid" stroke="none" stroke-width="0.5"/>
 
   <!-- Header -->
-  <text x="450" y="36" text-anchor="middle" class="svg-header" font-size="20" font-family="Georgia, serif" letter-spacing="5">FEREYDOON FARROKHZAD</text>
-  <text x="450" y="56" text-anchor="middle" class="svg-subheader" font-size="11" font-family="Georgia, serif" letter-spacing="3">A LIFE IN CITIES  ·  1938 – 1992</text>
+  <text x="450" y="36" text-anchor="middle" class="svg-header" font-size="20" font-family="Georgia, serif" letter-spacing="5">Ферейдун Фаррохзад</text>
+  <text x="450" y="56" text-anchor="middle" class="svg-subheader" font-size="11" font-family="Georgia, serif" letter-spacing="3">ЖИЗНЬ В ГОРОДАХ ·  1938 – 1992</text>
   <line x1="310" y1="66" x2="590" y2="66" class="svg-divider" stroke-width="0.5"/>
 
   <!-- Early routes (dimmer) -->
@@ -321,49 +320,49 @@
   <g class="city-node" data-group="both" onclick="showCity('tehran')">
     <circle cx="660" cy="272" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
     <circle cx="660" cy="272" r="6" class="svg-node-primary dot"/>
-    <text x="673" y="237" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">child · singer · TV star</text>
-    <text x="673" y="251" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Tehran</text>
+    <text x="673" y="237" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">ребенок · певец · телезвезда</text>
+    <text x="673" y="251" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Тегеран</text>
     <text x="673" y="264" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">1938–1958 · 1967–1982</text>
   </g>
 
   <g class="city-node" data-group="early" onclick="showCity('munich')">
     <circle cx="395" cy="187" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
     <circle cx="395" cy="187" r="5" class="svg-node-secondary dot"/>
-    <text x="407" y="152" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">student · prize-winning poet</text>
-    <text x="407" y="165" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Munich</text>
+    <text x="407" y="152" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">студент · заслуженный поэт</text>
+    <text x="407" y="165" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Мюнхен</text>
     <text x="407" y="178" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">1958 – 1967</text>
   </g>
 
   <g class="city-node" data-group="exile" onclick="showCity('bonn')">
     <circle cx="375" cy="145" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
     <circle cx="375" cy="145" r="6" class="svg-node-primary dot"/>
-    <text x="363" y="110" text-anchor="end" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">undefeated voice of protest</text>
-    <text x="363" y="123" text-anchor="end" class="svg-label-city" font-size="13" font-family="Georgia, serif">Bonn</text>
-    <text x="363" y="136" text-anchor="end" class="svg-label-detail" font-size="10" font-family="Georgia, serif">settled · performed · murdered · 1992</text>
+    <text x="363" y="110" text-anchor="end" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">несгибаемый голос протеста</text>
+    <text x="363" y="123" text-anchor="end" class="svg-label-city" font-size="13" font-family="Georgia, serif">Бонн</text>
+    <text x="363" y="136" text-anchor="end" class="svg-label-detail" font-size="10" font-family="Georgia, serif">обосновался · концертировал · был убит в 1992</text>
   </g>
 
   <g class="city-node" data-group="exile" onclick="showCity('istanbul')">
     <circle cx="532" cy="234" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
     <circle cx="532" cy="234" r="5" class="svg-node-secondary dot"/>
-    <text x="544" y="248" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">homeless refugee</text>
-    <text x="544" y="261" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Istanbul</text>
-    <text x="544" y="274" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">a stranger helped him</text>
+    <text x="544" y="248" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">бездомный беженец</text>
+    <text x="544" y="261" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Стамбул</text>
+    <text x="544" y="274" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">помощь незнакомца</text>
   </g>
 
   <g class="city-node" data-group="exile" onclick="showCity('paris')">
     <circle cx="270" cy="242" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
     <circle cx="270" cy="242" r="5" class="svg-node-secondary dot"/>
-    <text x="258" y="258" text-anchor="end" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">depressed refugee</text>
-    <text x="258" y="271" text-anchor="end" class="svg-label-city" font-size="13" font-family="Georgia, serif">Paris</text>
-    <text x="258" y="284" text-anchor="end" class="svg-label-detail" font-size="10" font-family="Georgia, serif">between countries</text>
+    <text x="258" y="258" text-anchor="end" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">беженец в депрессии</text>
+    <text x="258" y="271" text-anchor="end" class="svg-label-city" font-size="13" font-family="Georgia, serif">Париж</text>
+    <text x="258" y="284" text-anchor="end" class="svg-label-detail" font-size="10" font-family="Georgia, serif">между странами</text>
   </g>
 
   <g class="city-node" data-group="exile" onclick="showCity('la')">
     <circle cx="44" cy="310" r="14" class="svg-node-ring ring" stroke-width="0.6"/>
     <circle cx="44" cy="310" r="5" class="svg-node-secondary dot"/>
-    <text x="56" y="324" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">TV host in exile</text>
-    <text x="56" y="337" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Los Angeles</text>
-    <text x="56" y="350" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">stayed awhile (hated it)</text>
+    <text x="56" y="324" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">телеведущий в изгнании</text>
+    <text x="56" y="337" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Лос Лос-Анджелес</text>
+    <text x="56" y="350" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">провел несколько лет (терпеть не мог город)</text>
   </g>
 
   <!-- Mission line Bonn → Iraq (repeated, very faint) -->
@@ -375,18 +374,18 @@
   <g class="city-node" data-group="early" onclick="showCity('london')">
     <circle cx="190" cy="148" r="12" class="svg-node-ring ring" stroke-width="0.6"/>
     <polygon points="190,141 196,148 190,155 184,148" class="svg-diamond dot" style="transition: fill 0.2s"/>
-    <text x="178" y="132" text-anchor="end" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">a young man in love</text>
-    <text x="178" y="145" text-anchor="end" class="svg-label-city" font-size="13" font-family="Georgia, serif">London</text>
-    <text x="178" y="158" text-anchor="end" class="svg-label-detail" font-size="10" font-family="Georgia, serif">met Anja · 1962</text>
+    <text x="178" y="132" text-anchor="end" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">молодой влюбленный</text>
+    <text x="178" y="145" text-anchor="end" class="svg-label-city" font-size="13" font-family="Georgia, serif">Лондон</text>
+    <text x="178" y="158" text-anchor="end" class="svg-label-detail" font-size="10" font-family="Georgia, serif">встретил Аню · 1962</text>
   </g>
 
   <!-- Iraq — mission marker (open diamond) -->
   <g class="city-node" data-group="exile" onclick="showCity('iraq')">
     <circle cx="614" cy="322" r="12" class="svg-node-ring ring" stroke-width="0.6"/>
     <polygon points="614,314 621,322 614,330 607,322" class="svg-diamond-open dot" style="transition: stroke 0.2s"/>
-    <text x="626" y="310" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">humanitarian mission</text>
-    <text x="626" y="323" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Iraq</text>
-    <text x="626" y="336" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">POW camps · 1985–1988</text>
+    <text x="626" y="310" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">гуманитарная миссия</text>
+    <text x="626" y="323" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Ирак</text>
+    <text x="626" y="336" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">лагерь военнопленных · 1985–1988</text>
   </g>
 
   <!-- Poland — wavy special marker -->
@@ -395,12 +394,12 @@
     <path d="M 476 169 Q 479 166 482 169 Q 485 172 488 169 Q 491 166 494 169" fill="none" stroke="var(--node-secondary)" stroke-width="1.4" stroke-linecap="round"/>
     <path d="M 476 175 Q 479 172 482 175 Q 485 178 488 175 Q 491 172 494 175" fill="none" stroke="var(--node-secondary)" stroke-width="1.4" stroke-linecap="round"/>
     <line x1="492" y1="158" x2="530" y2="122" stroke="var(--label-detail)" stroke-width="0.4" stroke-dasharray="2 2"/>
-    <text x="534" y="112" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">a young man in love II</text>
-    <text x="534" y="125" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Poland</text>
-    <text x="534" y="138" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">academic work and love letters</text>
+    <text x="534" y="112" text-anchor="start" class="svg-label-role" font-size="10" font-family="Georgia, serif" font-weight="bold">молодой влюбленный II</text>
+    <text x="534" y="125" text-anchor="start" class="svg-label-city" font-size="13" font-family="Georgia, serif">Польша</text>
+    <text x="534" y="138" text-anchor="start" class="svg-label-detail" font-size="10" font-family="Georgia, serif">академические работы и любовные письма</text>
   </g>
   <line x1="40" y1="450" x2="860" y2="450" class="svg-footer-line" stroke-width="0.5"/>
-  <text x="450" y="468" text-anchor="middle" class="svg-label-footer" font-size="10" font-family="Georgia, serif" letter-spacing="2">POET  ·  ENTERTAINER  ·  ACTIVIST  · 1938 – 1992</text>
+  <text x="450" y="468" text-anchor="middle" class="svg-label-footer" font-size="10" font-family="Georgia, serif" letter-spacing="2">ПОЭТ  ·  ВЕДУЩИЙ  ·  АКТИВИСТ  ·  1938 – 1992</text>
 </svg>
   </div>
   <div class="zoom-controls">
@@ -409,28 +408,28 @@
     <button onclick="resetZoom()" title="Reset" style="font-size:11px;letter-spacing:0;">↺</button>
   </div>
   <div class="theme-toggle">
-    <button onclick="toggleTheme()" id="themeBtn" title="Toggle theme">☾</button>
+    <button onclick="toggleTheme()" id="themeBtn" title="Сменить тему">☾</button>
   </div>
 </div>
 
 <div class="filter-bar">
-  <button class="active" onclick="setFilter('all', this)">All</button>
-  <button onclick="setFilter('early', this)">Early life</button>
-  <button onclick="setFilter('exile', this)">Exile</button>
+  <button class="active" onclick="setFilter('all', this)">Все</button>
+  <button onclick="setFilter('early', this)">Ранние годы</button>
+  <button onclick="setFilter('exile', this)">Эмиграция</button>
 </div>
 
-<p class="hint">· click any city ·</p>
+<p class="hint">· нажмите на город ·</p>
 
 <!-- Detail panels -->
 <div id="panel-poland" class="panel">
   <div class="panel-inner">
     <div class="panel-years">1965–1967 · 1972</div>
     <div class="panel-body">
-      <div class="panel-role">a young man in love II</div>
-      <div class="panel-city">Poland</div>
-      <div class="panel-text">Fereydoon had a special relationship with a distant land that began in the 1960s, first with his academic interest as a political science student, then with Anja, who was Polish, and later — with his pen pal crush, Anja's cousin Marek. Fereydoon and Marek corresponded in 1965–1967. It is unknown if they ever met, but in 1972 Fereydoon performed at the Polish Sopot Song Festival.</div>
+      <div class="panel-role">молодой влюблённый II</div>
+      <div class="panel-city">Польша</div>
+      <div class="panel-text">У Фереидуна были особые отношения с далёкой страной, начавшиеся в 1960-е годы — сначала как академический интерес студента-политолога, затем через Аню, которая была полькой, и позже — через заочную влюблённость в Марека, двоюродного брата Ани. Фереидун и Марек переписывались в 1965–1967 годах. Встречались ли они когда-нибудь — неизвестно, но в 1972 году Фереидун выступил на польском фестивале песни в Сопоте.</div>
       <div class="panel-nav">
-        <button onclick="hidePanel()">Close</button>
+        <button onclick="hidePanel()">Закрыть</button>
       </div>
     </div>
   </div>
@@ -440,12 +439,12 @@
   <div class="panel-inner">
     <div class="panel-years">1962</div>
     <div class="panel-body">
-      <div class="panel-role">a young man in love</div>
+      <div class="panel-role">молодой влюблённый</div>
       <div class="panel-city">London</div>
-      <div class="panel-text">During his Munich years he met Anja in London — and it was this encounter that first drew poetry out of him. She became his wife, and together they had a son, Rostam. Their relationship was the spark that turned a student into a poet. Without London, without Anja, the voice that would eventually make him dangerous enough to assassinate might never have found itself.</div>
+      <div class="panel-text">В мюнхенские годы он встретил Аню в Лондоне — и именно эта встреча впервые пробудила в нём поэзию. Она стала его женой, и вместе у них родился сын Ростам. Их отношения были искрой, которая превратила студента в поэта. Без Лондона, без Ани голос, который в итоге сделал его достаточно опасным, чтобы его убили, возможно, так никогда и не нашёл бы себя.</div>
       <div class="panel-nav">
-        <button onclick="showCity('munich')">← Munich</button>
-        <button onclick="hidePanel()">Close</button>
+        <button onclick="showCity('munich')">← Мюнхен</button>
+        <button onclick="hidePanel()">Закрыть</button>
       </div>
     </div>
   </div>
@@ -455,12 +454,12 @@
   <div class="panel-inner">
     <div class="panel-years">1985–1988</div>
     <div class="panel-body">
-      <div class="panel-role">humanitarian mission</div>
+      <div class="panel-role">гуманитарная миссия</div>
       <div class="panel-city">Iraq</div>
-      <div class="panel-text">Three times during the Iran-Iraq war, Fereydoon flew into active conflict to reach POW camps holding Iranian child soldiers. He negotiated their release as a member of a diplomatic mission and brought approximately 100 children back to their families in Europe. It is one of the least known and most remarkable things he did.</div>
+      <div class="panel-text">Трижды во время ирано-иракской войны Фереидун летел в зону активных боевых действий, чтобы добраться до лагерей военнопленных, где содержались иранские дети-солдаты. В составе дипломатической миссии он добился их освобождения и вернул около 100 детей к их семьям в Европе. Это одна из наименее известных и наиболее замечательных вещей, которые он сделал.</div>
       <div class="panel-nav">
-        <button onclick="showCity('bonn')">← Bonn</button>
-        <button onclick="hidePanel()">Close</button>
+        <button onclick="showCity('bonn')">← Бонн</button>
+        <button onclick="hidePanel()">Закрыть</button>
       </div>
     </div>
   </div>
@@ -470,12 +469,12 @@
   <div class="panel-inner">
     <div class="panel-years">1938–1958<br/><br/>1967–1982</div>
     <div class="panel-body">
-      <div class="panel-role">child · singer · beloved TV star</div>
+      <div class="panel-role">ребёнок · певец · любимая телезвезда</div>
       <div class="panel-city">Tehran</div>
-      <div class="panel-text">Born here in 1938, Fereydoon spent his childhood and youth in Tehran before leaving for Germany. After nearly a decade in Munich he returned — and became one of Iran's most celebrated entertainers, a famous singer and a television host whose charisma and wit made him a household name. He was also openly, unapologetically queer in a country where that carried mortal risk. The revolution of 1979 made his continued presence impossible, and in 1982 he left — this time not by choice.</div>
+      <div class="panel-text">Родившийся здесь в 1938 году, Фереидун провёл своё детство и юность в Тегеране, прежде чем уехать в Германию. После почти десяти лет в Мюнхене он вернулся — и стал одним из самых любимых артистов Ирана: знаменитым певцом и телеведущим, чья харизма и остроумие сделали его именем нарицательным. Он также был открыто и бесстрашно геем в стране, где это грозило смертью. Революция 1979 года сделала его дальнейшее пребывание на родине невозможным, и в 1982 году он уехал — на этот раз не по своей воле.</div>
       <div class="panel-nav">
-        <button onclick="showCity('munich')">Next: Munich →</button>
-        <button onclick="hidePanel()">Close</button>
+        <button onclick="showCity('munich')">Далее: Мюнхен →</button>
+        <button onclick="hidePanel()">Закрыть</button>
       </div>
     </div>
   </div>
@@ -485,13 +484,13 @@
   <div class="panel-inner">
     <div class="panel-years">1958–1967</div>
     <div class="panel-body">
-      <div class="panel-role">student · prize-winning poet</div>
+      <div class="panel-role">студент · поэт-лауреат</div>
       <div class="panel-city">Munich</div>
-      <div class="panel-text">He arrived as a student and left as a poet. In Munich he wrote his PhD in political science, became a father, and in 1964 won the Berlin Poetry Prize. He joined the Munich Academy of Poetry and hosted programs on local television — an experience that will kickstart his whole career back at home. Germany didn't just shelter him — it shaped him as a poet and thinker. When he returned to Iran in 1967 he carried this literary formation with him, beneath the entertainer's surface that the public would come to adore.</div>
+      <div class="panel-text">Он приехал студентом, а уехал поэтом. В Мюнхене он защитил диссертацию по политологии, стал отцом и в 1964 году получил Берлинскую премию поэзии. Он вступил в Мюнхенскую академию поэзии и вёл программы на местном телевидении — опыт, который дал толчок всей его дальнейшей карьере на родине. Германия не просто приютила его — она сформировала его как поэта и мыслителя. Вернувшись в Иран в 1967 году, он нёс в себе это литературное становление, скрытое за обликом артиста, которого публика вскоре полюбит всем сердцем.</div>
       <div class="panel-nav">
-        <button onclick="showCity('tehran')">← Tehran</button>
-        <button onclick="showCity('istanbul')">Next: Istanbul →</button>
-        <button onclick="hidePanel()">Close</button>
+        <button onclick="showCity('tehran')">← Тегеран</button>
+        <button onclick="showCity('istanbul')">Далее: Стамбул →</button>
+        <button onclick="hidePanel()">Закрыть</button>
       </div>
     </div>
   </div>
@@ -501,12 +500,12 @@
   <div class="panel-inner">
     <div class="panel-years">1982</div>
     <div class="panel-body">
-      <div class="panel-role">homeless refugee</div>
+      <div class="panel-role">бездомный беженец</div>
       <div class="panel-city">Istanbul</div>
-      <div class="panel-text">He arrived with nothing, uncertain of everything. For a time he was homeless. Then a kind Turkish stranger helped him find footing — one of those acts of quiet human decency that go unrecorded by history but without which there is no history. Istanbul was not a destination; it was a threshold. He passed through it carrying everything he had lost.</div>
+      <div class="panel-text">Он прибыл ни с чем, не зная, что будет дальше. Некоторое время он был бездомным. Затем добрый турецкий незнакомец помог ему найти опору — один из тех поступков тихого человеческого участия, которые не записываются в историю, но без которых никакой истории не было бы. Стамбул не был пунктом назначения; это был порог. Он переступил его, неся с собой всё, что потерял.</div>
       <div class="panel-nav">
-        <button onclick="showCity('paris')">Next: Paris →</button>
-        <button onclick="hidePanel()">Close</button>
+        <button onclick="showCity('paris')">Далее: Париж →</button>
+        <button onclick="hidePanel()">Закрыть</button>
       </div>
     </div>
   </div>
@@ -516,13 +515,13 @@
   <div class="panel-inner">
     <div class="panel-years">~1983–1984</div>
     <div class="panel-body">
-      <div class="panel-role">depressed refugee</div>
+      <div class="panel-role">подавленный беженец</div>
       <div class="panel-city">Paris</div>
-      <div class="panel-text">A pause between elsewhere and somewhere. Paris was the city of Iranian exile for many artists and intellectuals fleeing the revolution, but for Fereydoon it didn't hold. He was between countries in every sense — no longer Iranian in the eyes of the regime, not yet anything else. The depression of those months was real and heavy.</div>
+      <div class="panel-text">Пауза между нигде и где-то. Париж был городом иранского изгнания для многих художников и интеллектуалов, бежавших от революции, но для Фереидуна он не стал пристанищем. Он был между странами во всех смыслах — в глазах режима уже не иранец, но ещё и не кто-то другой. Депрессия тех месяцев была настоящей и тяжёлой.</div>
       <div class="panel-nav">
         <button onclick="showCity('istanbul')">← Istanbul</button>
-        <button onclick="showCity('la')">Next: Los Angeles →</button>
-        <button onclick="hidePanel()">Close</button>
+        <button onclick="showCity('la')">Далее: Лос-Анджелес →</button>
+        <button onclick="hidePanel()">Закрыть</button>
       </div>
     </div>
   </div>
@@ -532,13 +531,13 @@
   <div class="panel-inner">
     <div class="panel-years">~1984–1985</div>
     <div class="panel-body">
-      <div class="panel-role">TV host in exile</div>
+      <div class="panel-role">телеведущий в эмиграции</div>
       <div class="panel-city">Los Angeles</div>
-      <div class="panel-text">Los Angeles had a large Iranian diaspora and he worked as a TV host there — continuing in the medium that had made him famous, but in exile, for an audience of the displaced. He stayed awhile. He hated it. The city that swallowed so many exiles couldn't hold him. He left for Germany, the country that had named him a poet thirty years earlier.</div>
+      <div class="panel-text">В Лос-Анджелесе жила большая иранская диаспора, и он работал там телеведущим — продолжая в том же жанре, что принёс ему славу, но в эмиграции, для аудитории перемещённых людей. Он остался ненадолго. Он ненавидел этот город. Город, поглотивший стольких изгнанников, не смог удержать его. Он уехал в Германию — страну, которая тридцать лет назад назвала его поэтом.</div>
       <div class="panel-nav">
         <button onclick="showCity('paris')">← Paris</button>
-        <button onclick="showCity('bonn')">Next: Bonn →</button>
-        <button onclick="hidePanel()">Close</button>
+        <button onclick="showCity('bonn')">Далее: Бонн →</button>
+        <button onclick="hidePanel()">Закрыть</button>
       </div>
     </div>
   </div>
@@ -548,12 +547,12 @@
   <div class="panel-inner">
     <div class="panel-years">~1985–1992</div>
     <div class="panel-body">
-      <div class="panel-role">undefeated voice of protest</div>
+      <div class="panel-role">несломленный голос протеста</div>
       <div class="panel-city">Bonn</div>
-      <div class="panel-text">He settled, performed, recorded, and continued — an unsilenced voice against the Islamic Republic, broadcasting to Iranians wherever they were. On August 8, 1992, he was assassinated in his Bonn apartment, almost certainly by agents of the Iranian state. He was 54. The murder was meant to silence him. It didn't.</div>
+      <div class="panel-text">Он обосновался, выступал, записывался и продолжал — неумолкающий голос против Исламской Республики, вещавший для иранцев везде, где они были. 8 августа 1992 года он был убит в своей квартире в Бонне, по всей видимости, агентами иранского государства. Ему было 54 года. Убийство должно было заставить его замолчать. Не получилось.</div>
       <div class="panel-nav">
         <button onclick="showCity('la')">← Los Angeles</button>
-        <button onclick="hidePanel()">Close</button>
+        <button onclick="hidePanel()">Закрыть</button>
       </div>
     </div>
   </div>
